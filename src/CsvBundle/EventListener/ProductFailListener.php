@@ -4,6 +4,7 @@ namespace CsvBundle\EventListener;
 
 use CsvBundle\Event\ProductFailEvent;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ProductFailListener
 {
@@ -19,13 +20,15 @@ class ProductFailListener
         $product = $event->getProduct();
         $errors = $event->getErrors();
 
-        /*$err_str = '';
+        $err = array();
         foreach ($errors as $error) {
-            $err_str .= $error->getMessage() . '. ';
-        }*/
+            $err[] = $error->getMessage();
+        }
 
-        $message = sprintf('The product %s (code: %s) was not imported. Errors: %s', $product->getStrProductName(), $product->getStrProductCode(), $errors);
+        $message = sprintf('The product %s (code: %s) was not imported. Errors:', $product->getStrProductName(), $product->getStrProductCode());
 
-        $this->logger->warning($message);
+        $this->logger->warning($message, $err);
     }
+
+    
 }

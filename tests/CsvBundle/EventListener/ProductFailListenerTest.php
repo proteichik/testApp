@@ -32,11 +32,16 @@ class ProductfailListenerTest extends \PHPUnit_Framework_TestCase
             $product->setStrProductName('test');
             $product->setStrProductCode('P1111');
 
-            $errors = $this->getMockBuilder('Symfony\Bridge\Monolog\Logger')->disableOriginalConstructor()->getMock();
+            $errors = $this->getMockBuilder('Symfony\Component\Validator\ConstraintViolationList')->disableOriginalConstructor()->getMock();
 
-            $this->logger->expects($this->once())->method('error')->with($this->identicalTo('PARSE ERROR. Lines: 1, 2'));
+            $event->setProduct($product);
+            $event->setErrors($errors);
 
-            $this->listener->onParseError($event);
+            $errors->expects($this->at(0))->method('offsetExists')->will($this->returnValue(true));
+            $errors->expects($this->at(0))->method('offsetGet')->will($this->returnValue('test'));
+            $this->logger->expects($this->once())->method('warning')->with($this->identicalTo('The product test (code: P1111) was not imported. Errors: ["test"]'));
+
+            $this->listener->onFailImport($event);
 
         }
     }
