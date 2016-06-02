@@ -21,10 +21,8 @@ class ProductFailListener
 
         $err_str = '';
         foreach ($errors as $error) {
-            $err_str .= $errors . ' ';
+            $err_str .= $error->getMessage() . '. ';
         }
-
-
 
         $message = sprintf('The product %s (code: %s) was not imported. Errors: %s', $product->getStrProductName(), $product->getStrProductCode(), $err_str);
 

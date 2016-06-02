@@ -33,21 +33,21 @@ class Product
     /**
      * @var string
      * @ORM\Column(name="strProductName", type="string", length=50)
-     * @Assert\NotBlank();
+     * @Assert\NotBlank(message="Product name is blank");
      */
     protected $strProductName;
 
     /**
      * @var string
      * @ORM\Column(name="strProductDesc", type="string", length=255)
-     * @Assert\NotBlank();
+     * @Assert\NotBlank(message="Product desc is blank");
      */
     protected $strProductDesc;
 
     /**
      * @var string
      * @ORM\Column(name="strProductCode", type="string", length=10)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Product code is blank")
      */
     protected $strProductCode;
 
@@ -65,15 +65,15 @@ class Product
 
     /**
      * @var int
-     * @Assert\Type(type="numeric")
-     * @Assert\NotBlank()
+     * @Assert\Type(type="numeric", message="Property stock should be of type numeric")
+     * @Assert\NotBlank(message="Property stock is blank")
      */
     protected $stock;
 
     /**
      * @var float
-     * @Assert\Type(type="numeric")
-     * @Assert\NotBlank()
+     * @Assert\Type(type="numeric", message="Property cost should be of type numeric")
+     * @Assert\NotBlank(message="Property cost is blank")
      */
     protected $cost;
 
@@ -266,7 +266,7 @@ class Product
        
 
     /**
-     * @Assert\IsFalse()
+     * @Assert\IsFalse(message="Product cost less than 5 and product stock less than 10")
      * @return bool
      */
     public function isProductLessCostAndStock()
@@ -275,7 +275,7 @@ class Product
     }
 
     /**
-     * @Assert\IsFalse()
+     * @Assert\IsFalse(message="Product cost over than 1000")
      * @return bool
      */
     public function isProductOverCost()
