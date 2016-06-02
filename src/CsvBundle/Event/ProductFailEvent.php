@@ -9,7 +9,7 @@ class ProductFailEvent extends ProductEvent
     
     protected $errors; //validations error
 
-    public function setErrors($errors)
+    public function setErrors(\IteratorAggregate $errors)
     {
         $this->errors = $errors;
     }
