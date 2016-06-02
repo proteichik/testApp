@@ -4,6 +4,7 @@ namespace Tests\CsvBundle\Event;
 
 use CsvBundle\Entity\Product;
 use CsvBundle\Event\ProductFailEvent;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ProductFailEventTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +26,7 @@ class ProductFailEventTest extends \PHPUnit_Framework_TestCase
 
         $this->event->setErrors($errors);
 
-        $this->assertTrue($this->event->getErrors() instanceof \IteratorAggregate);
+        $this->assertTrue($this->event->getErrors() instanceof ConstraintViolationListInterface);
     }
 
     public function testEventWithProduct()

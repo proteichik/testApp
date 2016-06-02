@@ -2,6 +2,7 @@
 
 namespace Tests\CsvBundle\EventListener;
 
+use CsvBundle\Entity\Product;
 use CsvBundle\EventListener\ProductFailListener;
 use CsvBundle\Event\ProductFailEvent;
 
@@ -22,11 +23,17 @@ class ProductfailListenerTest extends \PHPUnit_Framework_TestCase
         $bad_event = new \stdClass();
 
         try {
-            $this->listener->onParseError($bad_event);
+            $this->listener->onFailImport($bad_event);
             $this->fail('Must throw TypeError');
         } catch (\TypeError $ex) {
-            $event = new ParseErrorEvent();
-            $event->setLines(array('1', '2'));
+            $event = new ProductFailEvent();
+
+            $product = new Product();
+            $product->setStrProductName('test');
+            $product->setStrProductCode('P1111');
+
+            $errors = $this->getMockBuilder('Symfony\Bridge\Monolog\Logger')->disableOriginalConstructor()->getMock();
+
             $this->logger->expects($this->once())->method('error')->with($this->identicalTo('PARSE ERROR. Lines: 1, 2'));
 
             $this->listener->onParseError($event);

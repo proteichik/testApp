@@ -19,12 +19,12 @@ class ProductFailListener
         $product = $event->getProduct();
         $errors = $event->getErrors();
 
-        $err_str = '';
+        /*$err_str = '';
         foreach ($errors as $error) {
             $err_str .= $error->getMessage() . '. ';
-        }
+        }*/
 
-        $message = sprintf('The product %s (code: %s) was not imported. Errors: %s', $product->getStrProductName(), $product->getStrProductCode(), $err_str);
+        $message = sprintf('The product %s (code: %s) was not imported. Errors: %s', $product->getStrProductName(), $product->getStrProductCode(), $errors);
 
         $this->logger->warning($message);
     }
