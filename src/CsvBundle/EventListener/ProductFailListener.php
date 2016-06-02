@@ -22,7 +22,6 @@ class ProductFailListener
         $err_str = '';
         foreach ($errors as $error) {
             $err_str .= $errors . ' ';
-            var_dump($error);
         }
 
 
