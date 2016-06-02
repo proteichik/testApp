@@ -1,0 +1,19 @@
+services:
+#    csv.example:
+#        class: CsvBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    csv.listener.product_fail:
+        class: CsvBundle\EventListener\ProductFailListener
+        arguments: ['@logger']
+        tags:
+            - {name: kernel.event_listener, event: csv.import.fail, method: onFailImport}
+
+    csv.listener.parse_error:
+            class: CsvBundle\EventListener\ParseErrorListener
+            arguments: ['@logger']
+            tags:
+                - {name: kernel.event_listener, event: csv.parse.error, method: onParseError}
+
+    csv.service.import_service:
+        class: CsvBundle\Service\ImportService
+        arguments: ['@validator', '@doctrine.orm.default_entity_manager', '@event_dispatcher']

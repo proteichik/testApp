@@ -1,0 +1,3 @@
+csv_homepage:
+    path:     /
+    defaults: { _controller: CsvBundle:Default:index }
