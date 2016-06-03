@@ -79,4 +79,31 @@ class ImportCommandTest extends KernelTestCase
 
         $this->assertEquals('Total: 27 objects. Imported: 23, not imported: 4' . PHP_EOL, $this->commandTester->getDisplay());
     }
+
+    /**
+     * Testing insert dublicate entity
+     */
+    public function testDublicateEntity()
+    {
+        //first insert iteration
+        $this->commandTester->execute(
+            array(
+                'format'    => 'csv',
+                'file' => __DIR__. '/../Fixtures/stock_valid.csv',
+                '--clear'  => true,
+            )
+        );
+
+        $this->assertEquals('Total: 27 objects. Imported: 23, not imported: 4' . PHP_EOL, $this->commandTester->getDisplay());
+
+        //second insert iteration
+        $this->commandTester->execute(
+            array(
+                'format'    => 'csv',
+                'file' => __DIR__. '/../Fixtures/stock_valid.csv',
+            )
+        );
+
+        $this->assertEquals('Total: 27 objects. Imported: 0, not imported: 27' . PHP_EOL, $this->commandTester->getDisplay());
+    }
 }

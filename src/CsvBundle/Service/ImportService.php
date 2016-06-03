@@ -78,7 +78,14 @@ class ImportService
         }
 
         if (!$isTest) {
-            $this->em->flush(); //insert object in DB
+            try {
+                $this->em->flush(); //insert object in DB
+            } catch(\Exception $ex)
+            {
+                //Import fail! :)
+                $result['success'] = 0;
+                $result['errors'] = $reader->count();
+            }
         }
 
         return $result;
