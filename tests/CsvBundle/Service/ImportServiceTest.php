@@ -27,7 +27,7 @@ class ImportServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testCsvParseError()
     {
-        $csvReader = $this->getReader(__DIR__.'/Fixtures/stock_with_parse_error.csv');
+        $csvReader = $this->getReader(__DIR__.'/../Fixtures/stock_with_parse_error.csv');
 
         $this->dispatcher->expects($this->once())->method('dispatch')->with($this->identicalTo(ParseErrorEvent::PARSE_ERROR),
             $this->isInstanceOf(ParseErrorEvent::class));
@@ -41,7 +41,7 @@ class ImportServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testCsvWithoutParseErrorButWithImportError()
     {
-        $csvReader = $this->getReader(__DIR__.'/Fixtures/stock_valid.csv');
+        $csvReader = $this->getReader(__DIR__.'/../Fixtures/stock_valid.csv');
 
         $constList = new ConstraintViolationList(array($this->getViolation('test')));
 
