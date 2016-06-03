@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package CsvBundle\Entity
  * @ORM\Entity(repositoryClass="CsvBundle\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Table(name="tblProductData")
+ * @ORM\Table(name="tblProductData", indexes={@ORM\Index(name="strProductCode_idx", columns={"strProductCode"})})
  */
 class Product
 {
@@ -24,7 +24,7 @@ class Product
     
     /**
      * @var int
-     * @ORM\Column(name="intProductDataId", type="integer")
+     * @ORM\Column(name="intProductDataId", type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -53,7 +53,7 @@ class Product
 
     /**
      * @var DateTime
-     * @ORM\Column(name="dtmAdded", type="datetime")
+     * @ORM\Column(name="dtmAdded", type="datetime", nullable=true)
      */
     protected $dtmAdded;
 
@@ -67,6 +67,7 @@ class Product
      * @var int
      * @Assert\Type(type="numeric", message="Property stock should be of type numeric")
      * @Assert\NotBlank(message="Property stock is blank")
+     * @ORM\Column(name="intStock", type="integer")
      */
     protected $stock;
 
@@ -74,6 +75,7 @@ class Product
      * @var float
      * @Assert\Type(type="numeric", message="Property cost should be of type numeric")
      * @Assert\NotBlank(message="Property cost is blank")
+     * @ORM\Column(name="fltCost", type="float", options={"unsigned"=true})
      */
     protected $cost;
 
@@ -81,6 +83,21 @@ class Product
      * @var string|null
      */
     protected $discontinued;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(name="stmTimestamp", type="datetime")
+     */
+    protected $stmTimestamp;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setStmTimestamp()
+    {
+        $this->stmTimestamp = new \DateTime();
+    }
 
 
     /**
