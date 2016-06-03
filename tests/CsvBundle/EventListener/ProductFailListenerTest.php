@@ -5,6 +5,8 @@ namespace Tests\CsvBundle\EventListener;
 use CsvBundle\Entity\Product;
 use CsvBundle\EventListener\ProductFailListener;
 use CsvBundle\Event\ProductFailEvent;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class ProductfailListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,18 +34,21 @@ class ProductfailListenerTest extends \PHPUnit_Framework_TestCase
             $product->setStrProductName('test');
             $product->setStrProductCode('P1111');
 
-            $errors = $this->getMockBuilder('Symfony\Component\Validator\ConstraintViolationList')->disableOriginalConstructor()->getMock();
+            $errors = new ConstraintViolationList(array($this->getViolation('test', $product)));
 
             $event->setProduct($product);
             $event->setErrors($errors);
 
-            $errors->expects($this->at(0))->method('offsetExists')->will($this->returnValue(true));
-            $errors->expects($this->at(0))->method('offsetGet')->will($this->returnValue('test'));
-            $this->logger->expects($this->once())->method('warning')->with($this->identicalTo('The product test (code: P1111) was not imported. Errors: ["test"]'));
+            $this->logger->expects($this->once())->method('warning')->with($this->identicalTo('The product test (code: P1111) was not imported. Errors:'), $this->identicalTo(array('test')));
 
             $this->listener->onFailImport($event);
 
         }
+    }
+
+    protected function getViolation($message, $root = null, $propertyPath = null)
+    {
+        return new ConstraintViolation($message, $message, array(), $root, $propertyPath, null);
     }
 
 

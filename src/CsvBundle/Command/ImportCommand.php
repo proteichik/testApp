@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use CsvBundle\Factory\ImportFactory;
 use CsvBundle\Exception\FormatNotFoundException;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 /**
  * Class ImportCommand
@@ -59,7 +60,10 @@ class ImportCommand extends ContainerAwareCommand
             $reader = ImportFactory::getReader($format, $file); //get the reader
         } catch (FormatNotFoundException $ex)
         {
-            $output->writeln('<error>Type not found</error>');
+            $output->writeln('<error>Reader for type '. $format. ' not found</error>');
+            return;
+        } catch (FileNotFoundException $ex) {
+            $output->writeln('<error>File not found</error>');
             return;
         }
 
