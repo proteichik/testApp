@@ -2,7 +2,7 @@
 
 Синтаксис:
 
-import:command <format> <file> [--test] [--clear]
+import:command format file [--test] [--clear]
 
  - format определяет ридер для парсинга файла (с помощью фабрики).
  - Опция --clear - для очистки таблицы.
