@@ -33,12 +33,16 @@ class ImportFactory
         return $instance;
     }
 
+    /**
+     * @param $file
+     * @return CsvReader
+     */
     protected static function getCsvReader($file)
     {
         try{
             $file = new \SplFileObject($file);
             $instance = new CsvReader($file);
-            $instance->setHeaderRowNumber(0);
+            $instance->setHeaderRowNumber(0); //set headers
             return $instance;
         } catch (\Exception $ex)
         {

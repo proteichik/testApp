@@ -46,7 +46,7 @@ class Product
 
     /**
      * @var string
-     * @ORM\Column(name="strProductCode", type="string", length=10)
+     * @ORM\Column(name="strProductCode", type="string", length=10, unique=true)
      * @Assert\NotBlank(message="Product code is blank")
      */
     protected $strProductCode;

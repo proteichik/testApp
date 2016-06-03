@@ -5,9 +5,20 @@ namespace Tests\CsvBundle\EventListener;
 use CsvBundle\EventListener\ParseErrorListener;
 use CsvBundle\Event\ParseErrorEvent;
 
+/**
+ * Class ParseErrorListenerTest
+ * @package Tests\CsvBundle\EventListener
+ */
 class ParseErrorListenerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ParseErrorListener
+     */
     private $listener;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     public function setUp()
@@ -17,11 +28,15 @@ class ParseErrorListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = new ParseErrorListener($this->logger);
     }
 
+    /**
+     * Testing onParseError()
+     */
     public function testOnParseError()
     {
         $bad_event = new \stdClass();
 
         try {
+            //simulate a type error
             $this->listener->onParseError($bad_event);
             $this->fail('Must throw TypeError');
         } catch (\TypeError $ex) {

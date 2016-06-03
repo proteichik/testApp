@@ -4,8 +4,15 @@ namespace Tests\CsvBundle\Entity;
 
 use CsvBundle\Entity\Product;
 
+/**
+ * Class CvsProductTest
+ * @package Tests\CsvBundle\Entity
+ */
 class CvsProductTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Testing empty product
+     */
     public function testGetEmptyProduct()
     {
         $product = new Product();
@@ -22,7 +29,10 @@ class CvsProductTest extends \PHPUnit_Framework_TestCase
 
 
     }
-    
+
+    /**
+     * Testing product with data
+     */
     public function testGetProductWithData()
     {
         $product_data = array(
@@ -44,6 +54,9 @@ class CvsProductTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($product->getDiscontinued());
     }
 
+    /**
+     * Testing function isProductLessCostAndStock().
+     */
     public function testLessData()
     {
         $product = new Product();
@@ -57,6 +70,9 @@ class CvsProductTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($product->isProductLessCostAndStock());
     }
 
+    /**
+     * Testing function isProductOverCost().
+     */
     public function testOverData()
     {
         $product = new Product();

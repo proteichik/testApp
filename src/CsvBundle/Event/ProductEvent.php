@@ -5,12 +5,17 @@ namespace CsvBundle\Event;
 use CsvBundle\Entity\Product;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * Class ProductEvent
+ * @package CsvBundle\Event
+ */
 class ProductEvent extends Event implements ProductEventInterface
 {
     
-    protected $product;
+    protected $product; //product entity
 
     /**
+     * Set Product
      * @param Product $product
      */
     public function setProduct(Product $product)
@@ -19,6 +24,7 @@ class ProductEvent extends Event implements ProductEventInterface
     }
 
     /**
+     * Get Product
      * @return mixed
      */
     public function getProduct()

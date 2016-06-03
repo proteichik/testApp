@@ -9,9 +9,15 @@ use CsvBundle\Factory\ImportFactory;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Ddeboer\DataImport\Reader\CsvReader;
 
+/**
+ * Class ImportFactoryTest
+ * @package Tests\CsvBundle\Factory
+ */
 class ImportFactoryTest extends \PHPUnit_Framework_TestCase
 {
-
+    /**
+     * Testing get reader of the bad format
+     */
     public function testBadFormat()
     {
         $file = 'test.txt';
@@ -25,6 +31,11 @@ class ImportFactoryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Testing get reader of not exists file
+     *
+     * @throws FormatNotFoundException
+     */
     public function testNotExistsFile()
     {
         $file = 'test.csv';
@@ -38,6 +49,11 @@ class ImportFactoryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Testing get reader for valid data
+     *
+     * @throws FormatNotFoundException
+     */
     public function testExistsFile()
     {
         $file = $this->getValidFile();
@@ -48,6 +64,11 @@ class ImportFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(CsvReader::class, $reader);
     }
 
+    /**
+     * Simulate the file
+     *
+     * @return $this
+     */
     private function getValidFile()
     {
         $root = vfsStream::setup();

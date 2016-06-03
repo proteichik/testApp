@@ -38,7 +38,7 @@ class ImportCommand extends ContainerAwareCommand
                 'test',
                 null,
                 InputOption::VALUE_NONE,
-                'If you want a run a test mode'
+                'If you want run a test mode'
             )
             ->addOption(
               'clear',
@@ -60,9 +60,11 @@ class ImportCommand extends ContainerAwareCommand
             $reader = ImportFactory::getReader($format, $file); //get the reader
         } catch (FormatNotFoundException $ex)
         {
+            // if format is invalid
             $output->writeln('<error>Reader for type '. $format. ' not found</error>');
             return;
         } catch (FileNotFoundException $ex) {
+            //if file not found
             $output->writeln('<error>File not found</error>');
             return;
         }
@@ -75,7 +77,7 @@ class ImportCommand extends ContainerAwareCommand
             $importService->clearProductTable();
         }
 
-        $result = $importService->importObjects($reader, $input->getOption('test'));
+        $result = $importService->importObjects($reader, $input->getOption('test')); //main function for importing objects
 
         $message = sprintf('Total: %s objects. Imported: %s, not imported: %s', $reader->count(), $result['success'], $result['errors']);
 

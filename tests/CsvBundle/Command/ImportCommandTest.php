@@ -7,6 +7,10 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * Class ImportCommandTest
+ * @package Tests\CsvBundle\Command
+ */
 class ImportCommandTest extends KernelTestCase
 {
     private $commandTester;
@@ -24,6 +28,9 @@ class ImportCommandTest extends KernelTestCase
         $this->commandTester = new CommandTester($command);
     }
 
+    /**
+     * Testing how command execute with invalid format
+     */
     public function testExecuteWithBadFormat()
     {
 
@@ -39,6 +46,9 @@ class ImportCommandTest extends KernelTestCase
 
     }
 
+    /**
+     * Testing how command execute with invalid file
+     */
     public function testExecuteWithBadFile()
     {
 
@@ -54,6 +64,9 @@ class ImportCommandTest extends KernelTestCase
 
     }
 
+    /**
+     * Testing how command execute with valid format and file
+     */
     public function testExecute()
     {
         $this->commandTester->execute(

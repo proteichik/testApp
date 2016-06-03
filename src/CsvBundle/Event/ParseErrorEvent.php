@@ -16,11 +16,19 @@ class ParseErrorEvent extends Event
     
     protected $lines = array(); //lines num. of bad object
 
+    /**
+     * Get array of lines
+     * @return array
+     */
     public function getLines()
     {
         return $this->lines;
     }
 
+    /**
+     * Set num. lines
+     * @param array $lines
+     */
     public function setLines(array $lines)
     {
         $this->lines = $lines;

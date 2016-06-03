@@ -2,8 +2,17 @@
 
 namespace CsvBundle\Traits;
 
+/**
+ * Class CsvHeadersTrait
+ * @package CsvBundle\Traits
+ */
 trait CsvHeadersTrait
 {
+    /**
+     * Rules of hydration
+     *
+     * @var array
+     */
     protected $headers = array(
         'Product Code' => 'strProductCode',
         'Product Name' => 'strProductName',
@@ -12,7 +21,12 @@ trait CsvHeadersTrait
         'Cost in GBP' => 'cost',
         'Discontinued' => 'discontinued'
     );
-    
+
+    /**
+     * Hydrate object
+     *
+     * @param array $data
+     */
     public function setData(array $data = array())
     {
         foreach ($data as $key => $value) {
@@ -27,6 +41,8 @@ trait CsvHeadersTrait
     }
 
     /**
+     * Transform the key
+     *
      * @param $key
      * @return mixed
      */
